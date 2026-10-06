@@ -20,7 +20,7 @@ public class Main {
         System.out.println(myZoo.searchAnimal(lion2));
         System.out.println(myZoo.addAnimal(lion2));
 
-        // Instruction 13: remove
+
         System.out.println(myZoo.removeAnimal(tiger));
         System.out.println(myZoo.removeAnimal(tiger));
         myZoo.displayAnimals();
