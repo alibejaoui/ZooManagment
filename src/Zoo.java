@@ -1,18 +1,22 @@
 public class Zoo {
-    Animal[] animals = new Animal[25];
+    static final int Max_ANIMALS = 25;
+    Animal[] animals;
     String name;
     String city;
-    int nbrCages;
+    final int nbrCages;
     int animalCount = 0;
 
-    public Zoo() {
+    public Zoo(int nbrCages) {
+        this.nbrCages = Max_ANIMALS;
+        this.animals = new Animal[nbrCages];
     }
 
     public Zoo(String name, String city, int nbrCages) {
-        animals = new Animal[nbrCages];
         this.name = name;
         this.city = city;
-        this.nbrCages = nbrCages;
+        this.nbrCages = Math.min(nbrCages, Max_ANIMALS);
+        this.animals = new Animal[this.nbrCages];
+
     }
 
     public void displayZoo() {
@@ -20,6 +24,7 @@ public class Zoo {
         System.out.println("City: " + city);
         System.out.println("Number of cages: " + nbrCages);
     }
+
     public boolean addAnimal(Animal animal) {
         if (animalCount >= animals.length) {
             return false;
@@ -59,5 +64,21 @@ public class Zoo {
         animals[animalCount - 1] = null;
         animalCount--;
         return true;
+    }
+
+    public boolean isZooFull() {
+        for (int i = 0; i < nbrCages; i++) {
+            if (animals[i] == null) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public static Zoo compareZoo(Zoo z1, Zoo z2) {
+        if (z1.animalCount >= z2.animalCount) {
+            return z1;
+        }
+        return z2;
     }
 }

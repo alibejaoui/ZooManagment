@@ -24,5 +24,12 @@ public class Main {
         System.out.println(myZoo.removeAnimal(tiger));
         System.out.println(myZoo.removeAnimal(tiger));
         myZoo.displayAnimals();
+        Zoo z2 = new Zoo("Safari Park", "Sousse", 10);
+        z2.addAnimal(new Animal("Felidae", "Leo", 3, true));
+
+        System.out.println(myZoo.isZooFull());
+        System.out.println(Zoo.compareZoo(myZoo, z2).name);
     }
+
+
 }
