@@ -8,7 +8,7 @@ public class Zoo {
     private String city;
     private int animalCount;
 
-    public Zoo() {
+    public Zoo(String belvedereZoo, String tunis, int i) {
         animals = new Animal[NBR_CAGES];
     }
 
@@ -22,12 +22,11 @@ public class Zoo {
         return name;
     }
 
-    // Instruction 18: a zoo name must not be empty
+
     public void setName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("The zoo name must not be empty");
         }
-        this.name = name;
     }
 
     public String getCity() {
