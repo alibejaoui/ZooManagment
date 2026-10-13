@@ -65,7 +65,7 @@ public class Zoo {
         return animalCount >= NBR_CAGES;
     }
 
-    // Instruction 17: addAnimal relies on isZooFull()
+
     public boolean addAnimal(Animal animal) {
         if (isZooFull() || searchAnimal(animal) != -1) {
             return false;
