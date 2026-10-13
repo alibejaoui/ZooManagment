@@ -1,35 +1,13 @@
 public class Main {
     public static void main(String[] args) {
-        Zoo myZoo = new Zoo("Belvedere Zoo", "Tunis", 3); // 3 cages to see the limit quickly
-
+        Zoo myZoo = new Zoo("Belvedere Zoo", "Tunis", 3);
         Animal lion = new Animal("Felidae", "Simba", 5, true);
-        Animal tiger = new Animal("Felidae", "Shere Khan", 7, true);
-        Animal zebra = new Animal("Equidae", "Marty", 4, true);
-        Animal wolf = new Animal("Canidae", "Akela", 6, true);
 
-        System.out.println(myZoo.addAnimal(lion));
-        System.out.println(myZoo.addAnimal(tiger));
-        System.out.println(myZoo.addAnimal(zebra));
-        System.out.println(myZoo.addAnimal(wolf));
+        System.out.println(lion.getName());      // Simba
+        lion.setAge(-3);                         // Error message, age stays 5
+        System.out.println(lion.getAge());       // 5
 
-        myZoo.displayAnimals();
-
-        System.out.println(myZoo.searchAnimal(tiger));
-
-        Animal lion2 = new Animal("Felidae", "Simba", 5, true);
-        System.out.println(myZoo.searchAnimal(lion2));
-        System.out.println(myZoo.addAnimal(lion2));
-
-
-        System.out.println(myZoo.removeAnimal(tiger));
-        System.out.println(myZoo.removeAnimal(tiger));
-        myZoo.displayAnimals();
-        Zoo z2 = new Zoo("Safari Park", "Sousse", 10);
-        z2.addAnimal(new Animal("Felidae", "Leo", 3, true));
-
-        System.out.println(myZoo.isZooFull());
-        System.out.println(Zoo.compareZoo(myZoo, z2).name);
+        myZoo.setName("");                       // Error message, name stays the same
+        System.out.println(myZoo.getName());     // Belvedere Zoo
     }
-
-
 }
