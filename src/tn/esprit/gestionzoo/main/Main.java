@@ -1,6 +1,8 @@
+package tn.esprit.gestionzoo.main;
+
 public class Main {
     public static void main(String[] args) {
-        Zoo myZoo = new Zoo("Belvedere Zoo", "Tunis", 3);
+        /*Zoo myZoo = new Zoo("Belvedere Zoo", "Tunis", 3);
         Animal lion = new Animal("Felidae", "Simba", 5, true);
 
         System.out.println(lion.getName());      // Simba
@@ -9,5 +11,5 @@ public class Main {
 
         myZoo.setName("");                       // Error message, name stays the same
         System.out.println(myZoo.getName());     // Belvedere Zoo
-    }
+   */ }
 }

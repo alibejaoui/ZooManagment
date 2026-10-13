@@ -1,35 +1,33 @@
+package tn.esprit.gestionzoo.entities;
+
 public class Zoo {
-    static final int MAX_ANIMALS = 25;
+    private static final int NBR_CAGES = 25;
 
     private Animal[] animals;
     private String name;
     private String city;
-    private final int nbrCages;
-    private int animalCount = 0;
+    private int animalCount;
 
     public Zoo() {
-        this.nbrCages = MAX_ANIMALS;
-        this.animals = new Animal[nbrCages];
+        animals = new Animal[NBR_CAGES];
     }
 
-    public Zoo(String name, String city, int nbrCages) {
-        setName(name);               // goes through the rule
+    public Zoo(String name, String city) {
+        animals = new Animal[NBR_CAGES];
+        setName(name); // goes through the setter so the validation applies
         this.city = city;
-        this.nbrCages = Math.min(nbrCages, MAX_ANIMALS);
-        this.animals = new Animal[this.nbrCages];
     }
 
-    // Getters and setters
     public String getName() {
         return name;
     }
 
+    // Instruction 18: a zoo name must not be empty
     public void setName(String name) {
         if (name == null || name.trim().isEmpty()) {
-            System.out.println("Error: the zoo name must not be empty");
-        } else {
-            this.name = name;
+            throw new IllegalArgumentException("The zoo name must not be empty");
         }
+        this.name = name;
     }
 
     public String getCity() {
@@ -40,29 +38,36 @@ public class Zoo {
         this.city = city;
     }
 
-    public int getNbrCages() {
-        return nbrCages;             // no setter: it is a constant
-    }
-
     public int getAnimalCount() {
-        return animalCount;          // no setter: only add/remove change it
+        return animalCount;
     }
 
     public Animal[] getAnimals() {
         return animals;
     }
 
-    public void displayZoo() {
-        System.out.println("Name: " + name);
-        System.out.println("City: " + city);
-        System.out.println("Number of cages: " + nbrCages);
+    public static int getNbrCages() {
+        return NBR_CAGES;
     }
 
+    public void displayZoo() {
+        System.out.println("Name  : " + name);
+        System.out.println("City  : " + city);
+        System.out.println("Cages : " + NBR_CAGES);
+    }
+
+    @Override
+    public String toString() {
+        return "Zoo [name=" + name + ", city=" + city + ", nbrCages=" + NBR_CAGES + "]";
+    }
+
+    public boolean isZooFull() {
+        return animalCount >= NBR_CAGES;
+    }
+
+    // Instruction 17: addAnimal relies on isZooFull()
     public boolean addAnimal(Animal animal) {
-        if (isZooFull()) {
-            return false;
-        }
-        if (searchAnimal(animal) != -1) {
+        if (isZooFull() || searchAnimal(animal) != -1) {
             return false;
         }
         animals[animalCount] = animal;
@@ -72,7 +77,7 @@ public class Zoo {
 
     public void displayAnimals() {
         for (int i = 0; i < animalCount; i++) {
-            System.out.println(i + " - " + animals[i].getName() + " (" + animals[i].getFamily() + ", " + animals[i].getAge() + " years)");
+            System.out.println(animals[i]);
         }
     }
 
@@ -96,10 +101,6 @@ public class Zoo {
         animals[animalCount - 1] = null;
         animalCount--;
         return true;
-    }
-
-    public boolean isZooFull() {
-        return animalCount >= nbrCages;
     }
 
     public static Zoo compareZoo(Zoo z1, Zoo z2) {
