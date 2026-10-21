@@ -2,6 +2,8 @@ package tn.esprit.gestionzoo.entities;
 
 public class Zoo {
     private static final int NBR_CAGES = 25;
+    static final int MAX_AQUATICS = 10;           // new: the limit of 10
+
 
     private Animal[] animals;
     private String name;
@@ -107,5 +109,52 @@ public class Zoo {
             return z1;
         }
         return z2;
+    }
+    
+    private Aquatic[] aquaticAnimals = new Aquatic[MAX_AQUATICS];
+    private int aquaticCount = 0;
+    public void addAquaticAnimal(Aquatic aquatic) {
+        if (aquaticCount >= aquaticAnimals.length) {
+            System.out.println("No more room for aquatic animals.");
+            return;
+        }
+        aquaticAnimals[aquaticCount] = aquatic;
+        aquaticCount++;
+    }
+
+
+    public Aquatic[] getAquaticAnimals() {
+        return aquaticAnimals;
+
+    }
+
+    public int getAquaticCount() {
+        return aquaticCount;
+
+    }
+    public float maxPenguinSwimmingDepth() {
+        float max = 0;
+        for (int i = 0; i < aquaticCount; i++) {
+            if (aquaticAnimals[i] instanceof Penguin) {
+                Penguin p = (Penguin) aquaticAnimals[i];
+                if (p.getSwimmingDepth() > max) {
+                    max = p.getSwimmingDepth();
+                }
+            }
+        }
+        return max;
+    }
+    public void displayNumberOfAquaticsByType() {
+        int dolphins = 0;
+        int penguins = 0;
+        for (int i = 0; i < aquaticCount; i++) {
+            if (aquaticAnimals[i] instanceof Dolphin) {
+                dolphins++;
+            } else if (aquaticAnimals[i] instanceof Penguin) {
+                penguins++;
+            }
+        }
+        System.out.println("Dolphins: " + dolphins);
+        System.out.println("Penguins: " + penguins);
     }
 }
