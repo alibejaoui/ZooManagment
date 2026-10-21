@@ -19,8 +19,8 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        System.out.println(myZoo.addAnimal(dolphin));   // true
-        System.out.println(myZoo.addAnimal(penguin));   // true
+        System.out.println(myZoo.addAnimal(dolphin));
+        System.out.println(myZoo.addAnimal(penguin));
         myZoo.displayAnimals();
 
         System.out.println(myZoo.getName());
