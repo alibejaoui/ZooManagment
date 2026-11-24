@@ -9,10 +9,11 @@ public class Animal {
     public Animal() {
     }
 
-    public Animal(String family, String name, int age, boolean isMammal) {
+    public Animal(String family, String name, int age, boolean isMammal)
+            throws InvalidAgeException {
         this.family = family;
         this.name = name;
-        setAge(age);                 // goes through the rule
+        setAge(age);                 // goes through the validation rule
         this.isMammal = isMammal;
     }
 
@@ -36,12 +37,11 @@ public class Animal {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(int age) throws InvalidAgeException {
         if (age < 0) {
-            System.out.println("error: an animal cannot have a negative age");
-        } else {
-            this.age = age;
+            throw new InvalidAgeException("An animal cannot have a negative age: " + age);
         }
+        this.age = age;
     }
 
     public boolean isMammal() {
@@ -50,5 +50,11 @@ public class Animal {
 
     public void setMammal(boolean isMammal) {
         this.isMammal = isMammal;
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{family=" + family + ", name=" + name
+                + ", age=" + age + ", isMammal=" + isMammal + "}";
     }
 }

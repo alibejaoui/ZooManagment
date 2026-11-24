@@ -1,22 +1,20 @@
 package tn.esprit.gestionzoo.entities;
 
 public class Zoo {
-    private static final int NBR_CAGES = 25;
-    static final int MAX_AQUATICS = 10;           // new: the limit of 10
-
+    private static final int NBR_CAGES = 3;       // instruction 33: reduced to 3
+    static final int MAX_AQUATICS = 10;
 
     private Animal[] animals;
     private String name;
     private String city;
     private int animalCount;
 
-    public Zoo(String belvedereZoo, String tunis, int i) {
-        animals = new Animal[NBR_CAGES];
-    }
+    private Aquatic[] aquaticAnimals = new Aquatic[MAX_AQUATICS];
+    private int aquaticCount = 0;
 
     public Zoo(String name, String city) {
         animals = new Animal[NBR_CAGES];
-        setName(name); // goes through the setter so the validation applies
+        setName(name);               // goes through the setter so the validation applies
         this.city = city;
     }
 
@@ -24,11 +22,11 @@ public class Zoo {
         return name;
     }
 
-
     public void setName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("The zoo name must not be empty");
         }
+        this.name = name;
     }
 
     public String getCity() {
@@ -62,18 +60,16 @@ public class Zoo {
         return "Zoo [name=" + name + ", city=" + city + ", nbrCages=" + NBR_CAGES + "]";
     }
 
-    public boolean isZooFull() {
-        return animalCount >= NBR_CAGES;
-    }
-
-
-    public boolean addAnimal(Animal animal) {
-        if (isZooFull() || searchAnimal(animal) != -1) {
-            return false;
+    // Instructions 32 and 33: returns void and throws ZooFullException when full
+    public void addAnimal(Animal animal) throws ZooFullException {
+        if (animalCount >= animals.length) {
+            throw new ZooFullException("The zoo is full, cannot add " + animal.getName());
+        }
+        if (searchAnimal(animal) != -1) {
+            return;                  // animal already in the zoo: ignored
         }
         animals[animalCount] = animal;
         animalCount++;
-        return true;
     }
 
     public void displayAnimals() {
@@ -110,9 +106,9 @@ public class Zoo {
         }
         return z2;
     }
-    
-    private Aquatic[] aquaticAnimals = new Aquatic[MAX_AQUATICS];
-    private int aquaticCount = 0;
+
+    // ----- Aquatic animals -----
+
     public void addAquaticAnimal(Aquatic aquatic) {
         if (aquaticCount >= aquaticAnimals.length) {
             System.out.println("No more room for aquatic animals.");
@@ -122,16 +118,14 @@ public class Zoo {
         aquaticCount++;
     }
 
-
     public Aquatic[] getAquaticAnimals() {
         return aquaticAnimals;
-
     }
 
     public int getAquaticCount() {
         return aquaticCount;
-
     }
+
     public float maxPenguinSwimmingDepth() {
         float max = 0;
         for (int i = 0; i < aquaticCount; i++) {
@@ -144,6 +138,7 @@ public class Zoo {
         }
         return max;
     }
+
     public void displayNumberOfAquaticsByType() {
         int dolphins = 0;
         int penguins = 0;
